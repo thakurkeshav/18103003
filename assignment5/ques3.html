@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParanthesisChecker</title>
+    <script>
+        function doneV() {
+            const str = document.getElementById('text').value;
+            if (str.length === 0) {
+                alert("Enter something");
+            } else {
+                alert((checkParan(str) === -1) ? false : true);
+            }
+
+        }
+
+        function checkParan(str) {
+            let st = [],
+                ch = '';
+            for (let i = 0; i < str.length; i++) {
+                if (str[i] === '(' || str[i] === '[' || str[i] === '{') {
+                    st.push(str[i]);
+                    continue;
+                }
+                if (st.length === 0) {
+                    return -1;
+                }
+
+                switch (str[i]) {
+                    case ')':
+                        ch = st[(st.length - 1)];
+                        st.pop();
+                        if (ch === '{' || ch === '[') {
+                            return -1;
+                        }
+                        break;
+
+                    case '}':
+                        ch = st[(st.length - 1)];
+                        st.pop();
+                        if (ch === '(' || ch === '[') {
+                            return -1;
+                        }
+                        break;
+
+                    case ']':
+                        ch = st[(st.length - 1)];
+                        st.pop();
+                        if (ch === '(' || ch === '{') {
+                            return -1;
+                        }
+                        break;
+                }
+
+            }
+            return (st.length === 0);
+        }
+    </script>
+</head>
+
+<body>
+    <h3>Enter the String:</h3>
+    <input type="text" name="text" id="text"></input>
+    <button onClick="doneV()">Click</button>
+</body>
+
+
+</html>
